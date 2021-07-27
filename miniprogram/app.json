@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "pages/list/list",
+    "pages/index/index",
+    "pages/detail/detail"
+  ],
+  "window": {
+    "navigationStyle": "custom"
+  },
+  "usingComponents": {
+    "cu-custom":"./colorui/components/cu-custom"
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

@@ -1,0 +1,85 @@
+<cu-custom bgColor="bg-gradual-pink" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">立项进展</view>
+</cu-custom>
+
+<view class="cu-card dynamic isCard margin-top">
+  <view class="cu-item shadow">
+    <view class="cu-list menu-avatar comment solids-top">
+      <view class="cu-item">
+        <view class="content">
+          <view class="text-cyan">知侬</view>
+          <view class="bg-grey padding-sm radius margin-top-sm  text-lg">
+            <view class="flex">
+              <view class="flex-sub">{{targetDetail.targetName}}</view>
+            </view>
+          </view>
+          <view class="margin-top-sm flex justify-between">
+            <view class="text-cyan text-lg">{{targetDetail.time}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<block wx:for="{{targetDetail.note}}" wx:key>
+  <view class="cu-timeline">
+    <view class="cu-time">{{item.time}}</view>
+    <view class="cu-item text-orange cuIcon-noticefill">
+      <view class="content">
+        <view class="cu-capsule radius">
+          <view class="cu-tag bg-cyan">{{item.planName}}</view>
+          <view class="cu-tag line-cyan">xxx</view>
+        </view>
+        <view class="margin-top">{{item.note}}</view>
+      </view>
+    </view>
+  </view>
+</block>
+
+<form>
+
+  <view class="cu-form-group margin-top">
+    <view class="title">选择进展</view>
+    <picker bindchange="PickerChange" value="{{index}}" range="{{planList}}">
+      <view class="picker">
+        {{index?planList[index]:planList[targetDetail.progress]}}
+      </view>
+    </picker>
+  </view>
+  <view class="cu-form-group">
+    <textarea maxlength="-1" disabled="{{modalName!=null}}" bindinput="textareaAInput" placeholder="多行文本输入框"></textarea>
+  </view>
+
+</form>
+
+
+
+<view class="cu-bar bg-white margin-top">
+  <view class="action">
+    <text class="cuIcon-title text-orange "></text> 提交
+  </view>
+  <view class="action">
+    <button class="cu-btn bg-green shadow" bindtap="showModal" data-target="DialogModal1">进展报告</button>
+  </view>
+</view>
+<view class="cu-modal {{modalName=='DialogModal1'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">{{index?planList[index]:planList[targetDetail.progress]}}</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      {{textareaAValue}}
+    </view>
+    <view class="cu-bar bg-white justify-end">
+      <view class="action">
+        <button class="cu-btn line-green text-green" bindtap="hideModal" id="cancel">取消</button>
+        <button class="cu-btn bg-green margin-left" bindtap="hideModal" id="ensure">确定</button>
+      </view>
+    </view>
+  </view>
+</view>

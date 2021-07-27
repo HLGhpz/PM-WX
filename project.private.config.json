@@ -1,0 +1,42 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "id": -1,
+          "name": "db guide",
+          "pathName": "pages/databaseGuide/databaseGuide",
+          "query": ""
+        },
+        {
+          "name": "pages/updateRecord/index",
+          "pathName": "pages/updateRecord/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/list/list",
+          "pathName": "pages/list/list",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/detail/detail",
+          "pathName": "pages/detail/detail",
+          "query": "targetID=3",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1 @@
+"E:\Program Files\微信web开发者工具\cli.bat" cloud functions deploy --e hlghpz-63hqj --n quickstartFunctions --r --project "C:\Users\hpz\Desktop\就业质量报告\微信小程序设计\PM-WX" --report
