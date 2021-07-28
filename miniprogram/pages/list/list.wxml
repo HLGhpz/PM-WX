@@ -18,7 +18,7 @@
 <view>
   <block wx:if="{{TabCur==1}}">
     <block wx:for="{{targetList}}" wx:key>
-      <view class="cu-timeline" id="{{item.targetID}}" bindtap="goToDetail">
+      <view class="cu-timeline padding" id="{{item.targetID}}" bindtap="goToDetail">
         <view class="cu-time">{{item.updataTime}}</view>
         <view class="cu-item text-orange cuIcon-noticefill">
           <view class="content">
@@ -38,8 +38,7 @@
         <input placeholder="标题"></input>
       </view>
       <view class="cu-form-group">
-        <textarea maxlength="-1" bindinput="textareaAInput"
-          placeholder="简介"></textarea>
+        <textarea maxlength="-1" bindinput="textareaAInput" placeholder="简介"></textarea>
       </view>
     </form>
 
