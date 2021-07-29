@@ -25,14 +25,12 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  },
+  onReady: function () {},
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  },
+  onShow: function () {},
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -87,16 +85,14 @@ Page({
             value.progressName = this.data.processList[value.progress]
             // let target
           })
-          console.log(res.data)
           this.setData({
             targetList: res.data
           })
         })
-    }
-    else if (this.data.TabCur == 2) {
+    } else if (this.data.TabCur == 2) {
       target.where({
-        progress: _.eq(5)
-      })
+          progress: _.eq(5)
+        })
         .get()
         .then(res => {
           res.data.map((value, index) => {
@@ -105,16 +101,14 @@ Page({
             value.progressName = this.data.processList[value.progress]
             // let target
           })
-          console.log(res.data)
           this.setData({
             targetList: res.data
           })
         })
-    }
-    else {
+    } else {
       target.where({
-        progress: _.gte(6)
-      })
+          progress: _.gte(6)
+        })
         .get()
         .then(res => {
           res.data.map((value, index) => {
@@ -123,7 +117,6 @@ Page({
             value.progressName = this.data.processList[value.progress]
             // let target
           })
-          console.log(res.data)
           this.setData({
             targetList: res.data
           })
@@ -151,19 +144,59 @@ Page({
     wx.navigateTo({
       url: `../detail/detail?targetID=${targetID}`,
     })
-  }, 
+  },
 
-  textareaAInput(e) {
-    console.log("A", e.detail.value)
+  textareaInput(e) {
     this.setData({
-      textareaAValue: e.detail.value
+      targetDetail: e.detail.value
     })
   },
 
-  textareaBInput(e) {
-    console.log("B", e.detail.value)
+  formSubmit(e) {
     this.setData({
-      textareaAValue: e.detail.value
+      targetTitle: e.detail.value.targetTitle
+    })
+  },
+
+  showModal(e) {
+    this.setData({
+      modalName: e.currentTarget.dataset.target
+    })
+  },
+  hideModal(e) {
+    if (e.currentTarget.id == "sure") {
+      target.count().then((e) => {
+        this.setData({
+          totalTarget: e.total
+        })
+        target.add({
+            data: {
+              updataTime: new Date,
+              targetName: this.data.targetTitle,
+              progress: 0,
+              targetID: this.data.totalTarget + 1,
+              note: [{
+                note: this.data.targetDetail,
+                plan: 0,
+                time: new Date
+              }]
+            }
+          })
+          .then((e) => {
+            console.log("添加数据反馈", e)
+            this.setData({
+              targetDetail: "xx",
+              targetTitle: "xx"
+            })
+            this.reqTarget()
+            console.log("targetDetail", this.data.targetDetail)
+          })
+      })
+
+
+    }
+    this.setData({
+      modalName: null
     })
   },
 })

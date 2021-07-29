@@ -1,1 +1,13 @@
 /* pages/list/list.wxss */
+
+.cu-timeline>.cu-item::after {
+	content: "";
+	display: block;
+	position: absolute;
+	width: 1rpx;
+	background-color: #E54D42;
+	left: 60rpx;
+	height: 100%;
+	top: 0;
+	z-index: 8;
+}

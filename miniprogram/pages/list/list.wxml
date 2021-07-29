@@ -15,94 +15,51 @@
   </view>
 </scroll-view>
 
-<view>
-  <block wx:if="{{TabCur==1}}">
-    <block wx:for="{{targetList}}" wx:key>
-      <view class="cu-timeline padding" id="{{item.targetID}}" bindtap="goToDetail">
-        <view class="cu-time">{{item.updataTime}}</view>
-        <view class="cu-item text-orange cuIcon-noticefill">
-          <view class="content">
-            <view class="cu-capsule radius">
-              <view class="cu-tag bg-cyan">{{item.progressName}}</view>
-              <view class="cu-tag line-cyan">{{item.updataDay}}</view>
-            </view>
-            <view class="margin-top">{{item.targetName}}</view>
+<block wx:if="{{TabCur==1}}">
+  <block wx:for="{{targetList}}" wx:key>
+    <view class="cu-timeline padding" id="{{item.targetID}}" bindtap="goToDetail">
+      <view class="cu-time">{{item.updataTime}}</view>
+      <view class="cu-item text-orange cuIcon-noticefill">
+        <view class="content">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">{{item.progressName}}</view>
+            <view class="cu-tag line-cyan">{{item.updataDay}}</view>
           </view>
-        </view>
-      </view>
-    </block>
-
-    <form>
-      <view class="cu-form-group margin-top" bindinput="textareaBInput">
-        <view class="title">立项题目</view>
-        <input placeholder="标题"></input>
-      </view>
-      <view class="cu-form-group">
-        <textarea maxlength="-1" bindinput="textareaAInput" placeholder="简介"></textarea>
-      </view>
-    </form>
-
-
-    <view class="cu-bar bg-white margin-top">
-      <view class="action">
-        <text class="cuIcon-title text-orange "></text> 提交
-      </view>
-      <view class="action">
-        <button class="cu-btn bg-green shadow" bindtap="showModal" data-target="DialogModal1">进展报告</button>
-      </view>
-    </view>
-    <view class="cu-modal {{modalName=='DialogModal1'?'show':''}}">
-      <view class="cu-dialog">
-        <view class="cu-bar bg-white justify-end">
-          <view class="content">{{index?planList[index]:planList[targetDetail.progress]}}</view>
-          <view class="action" bindtap="hideModal">
-            <text class="cuIcon-close text-red"></text>
-          </view>
-        </view>
-        <view class="padding-xl">
-          {{textareaAValue}}
-        </view>
-        <view class="cu-bar bg-white justify-end">
-          <view class="action">
-            <button class="cu-btn line-green text-green" bindtap="hideModal" id="cancel">取消</button>
-            <button class="cu-btn bg-green margin-left" bindtap="hideModal" id="ensure">确定</button>
-          </view>
+          <view class="margin-top">{{item.targetName}}</view>
         </view>
       </view>
     </view>
-
   </block>
-  <block wx:if="{{TabCur==2}}">
-    <block wx:for="{{targetList}}" wx:key>
-      <view class="cu-timeline">
-        <view class="cu-time">{{item.updataTime}}</view>
-        <view class="cu-item text-orange cuIcon-noticefill">
-          <view class="content">
-            <view class="cu-capsule radius">
-              <view class="cu-tag bg-cyan">{{item.progressName}}</view>
-              <view class="cu-tag line-cyan">{{item.updataDay}}</view>
-            </view>
-            <view class="margin-top">{{item.targetName}}</view>
-          </view>
+  <form bindsubmit="formSubmit">
+    <view class="cu-form-group margin-top">
+      <view class="title">立项题目</view>
+      <input name="targetTitle" placeholder="项目名称">{{targetTitle}}</input>
+    </view>
+    <view class="cu-form-group">
+      <textarea maxlength="-1" bindinput="textareaInput" placeholder="简介"></textarea>
+    </view>
+    <view class="cu-form-group flex flex-direction bg-white">
+      <button form-type="submit" class="cu-btn bg-red margin-tb-sm lg" bindtap="showModal"
+        data-target="DialogModal">提交数据</button>
+    </view>
+  </form>
+  <view class="cu-modal {{modalName=='DialogModal'?'show':''}}">
+    <view class="cu-dialog">
+      <view class="cu-bar bg-white justify-end">
+        <view class="content">{{targetTitle}}</view>
+        <view class="action" bindtap="hideModal">
+          <text class="cuIcon-close text-red"></text>
         </view>
       </view>
-    </block>
-  </block>
-  <block wx:if="{{TabCur==3}}">
-    <block wx:for="{{targetList}}" wx:key>
-      <view class="cu-timeline">
-        <view class="cu-time">{{item.updataTime}}</view>
-        <view class="cu-item text-orange cuIcon-noticefill">
-          <view class="content">
-            <view class="cu-capsule radius">
-              <view class="cu-tag bg-cyan">{{item.progressName}}</view>
-              <view class="cu-tag line-cyan">{{item.updataDay}}</view>
-            </view>
-            <view class="margin-top">{{item.targetName}}</view>
-          </view>
+      <view class="padding-xl">
+        {{targetDetail}}
+      </view>
+      <view class="cu-bar bg-white justify-end">
+        <view class="action">
+          <button class="cu-btn line-green text-green" bindtap="hideModal" id="cancel">取消</button>
+          <button class="cu-btn bg-green margin-left" bindtap="hideModal" id="sure">确定</button>
         </view>
       </view>
-    </block>
-  </block>
-
-</view>
+    </view>
+  </view>
+</block>
