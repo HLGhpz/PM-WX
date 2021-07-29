@@ -2032,7 +2032,7 @@ button.icon.lg {
 }
 
 .cu-timeline>.cu-item:not([class*="text-"]) {
-	color: red;
+	color: #ccc;
 }
 
 .cu-timeline>.cu-item::after {

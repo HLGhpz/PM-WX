@@ -3,25 +3,13 @@
   <view slot="content">立项进展</view>
 </cu-custom>
 
-<view class="cu-card dynamic isCard margin-top">
-  <view class="cu-item shadow">
-    <view class="cu-list menu-avatar comment solids-top">
-      <view class="cu-item" style="position: relative; left: 0rpx; top: -3rpx">
-        <view class="content">
-          <view class="text-cyan">知侬</view>
-          <view class="bg-grey padding-sm radius margin-top-sm  text-lg">
-            <view class="flex">
-              <view class="flex-sub">{{targetDetail.targetName}}</view>
-            </view>
-          </view>
-          <view class="margin-top-sm flex justify-between">
-            <view class="text-cyan text-lg">{{targetDetail.time}}</view>
-          </view>
-        </view>
+<view class="bg-white .light solids-bottom padding-xs flex align-center">
+    <view class="flex-sub text-center">
+      <view class="solid-bottom text-xl padding">
+        <text class="text-purple .light text-bold">{{targetDetail.targetName}}</text>
       </view>
     </view>
   </view>
-</view>
 
 <block wx:for="{{targetDetail.note}}" wx:key>
   <view class="cu-timeline">

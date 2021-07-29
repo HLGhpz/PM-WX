@@ -57,23 +57,15 @@
     "miniprogram": {
       "list": [
         {
-          "id": -1,
-          "name": "db guide",
-          "pathName": "pages/databaseGuide/databaseGuide",
-          "query": ""
-        },
-        {
-          "id": -1,
-          "name": "pages/list/list",
+          "name": "列表页调试",
           "pathName": "pages/list/list",
           "query": "",
           "scene": null
         },
         {
-          "id": 2,
-          "name": "pages/detail/detail",
+          "name": "详情页调试",
           "pathName": "pages/detail/detail",
-          "query": "targetID=3",
+          "query": "targetID=1",
           "scene": null
         }
       ]

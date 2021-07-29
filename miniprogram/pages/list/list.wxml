@@ -1,6 +1,5 @@
 <cu-custom bgColor="bg-gradual-pink" isBack="{{true}}">
-  <view slot="backText">返回</view>
-  <view slot="content">列表</view>
+  <view slot="content">项目管理</view>
 </cu-custom>
 
 <scroll-view scroll-x class="bg-red nav text-center">
@@ -44,7 +43,10 @@
         data-target="DialogModal">提交数据</button>
     </view>
   </form>
-  <view class="cu-modal {{modalName=='DialogModal'?'show':''}}">
+
+</block>
+
+<view class="cu-modal {{modalName=='DialogModal'?'show':''}}">
     <view class="cu-dialog">
       <view class="cu-bar bg-white justify-end">
         <view class="content">{{targetTitle}}</view>
@@ -63,4 +65,3 @@
       </view>
     </view>
   </view>
-</block>
