@@ -33,7 +33,7 @@
         {
           "name": "pages/detail/detail",
           "pathName": "pages/detail/detail",
-          "query": "targetID=3",
+          "query": "targetID=1",
           "scene": null
         }
       ]

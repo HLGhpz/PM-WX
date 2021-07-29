@@ -22,8 +22,9 @@
       <view class="cu-item text-orange cuIcon-noticefill">
         <view class="content">
           <view class="cu-capsule radius">
-            <view class="cu-tag bg-cyan">{{item.progressName}}</view>
-            <view class="cu-tag line-cyan">{{item.updataDay}}</view>
+            <view class="radius cu-tag {{item.targetLine}}">STEP {{item.progress}}</view>
+            <view class="cu-tag {{item.targetBg}}">{{item.progressName}}</view>
+            <view class="cu-tag {{item.targetLine}}">已过去：{{item.updataDay}} 天</view>
           </view>
           <view class="margin-top">{{item.targetName}}</view>
         </view>

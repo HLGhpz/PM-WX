@@ -11,6 +11,8 @@ Page({
    */
   data: {
     planList: ["立项", "收集", "制作", "发布", "普通"],
+    bgList: ["bg-lightBlue", "bg-blue", "bg-indigo", "bg-deepPurple", "bg-green", "bg-pink", "bg-red"],
+    lineList: ["line-lightBlue", "line-blue", "line-indigo", "line-deepPurple", "line-green", "line-pink", "line-red"],
     index: null,
   },
 
@@ -18,8 +20,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let id = options.targetID;
-    this.reqTarget(id)
+    this.setData({
+      targetID: options.targetID
+    })
+    this.reqTarget()
   },
 
   /**
@@ -74,19 +78,22 @@ Page({
   /**
    * 请求目标详细说明
    */
-  reqTarget: function (id) {
+  reqTarget: function () {
     target
       .where({
-        targetID: _.eq(id * 1)
+        targetID: _.eq(this.data.targetID * 1)
       })
       .get()
       .then((value, index) => {
         let target = value.data[0]
-        console.log(target)
+        console.log('target', value)
         target.time = target.updataTime.toLocaleDateString('zh').replace(/\//g, '-')
         let note = target.note.map((value, index) => {
+          value.hourMinute = `${value.time.getHours()}:${value.time.getMinutes()}`
           value.time = value.time.toLocaleDateString('zh').replace(/\//g, '-')
           value.planName = this.data.planList[value.plan]
+          value.planBg = this.data.bgList[value.plan]
+          value.planLine = this.data.lineList[value.plan]
           // console.log(value)
         })
         this.setData({
@@ -120,33 +127,45 @@ Page({
   },
 
   /**
-  * 监听Target数据的提交
-  */
+   * 监听Target数据的提交
+   */
   updataPlan() {
     if (this.data.index == 4 || this.data.index <= this.data.targetDetail.progress) {
-      console.log(this.data.targetDetail.targetID)
       target
         .where({
           targetID: _.eq(this.data.targetDetail.targetID * 1)
         })
         .update({
           data: {
-            note: _.push({ "note": this.data.textareaAValue, "plan": this.data.index, "time": new Date }),
-            updataTime: _.set(new Date)
+            note: _.push({
+              "note": this.data.textareaAValue,
+              "plan": this.data.index,
+              "time": new Date
+            }),
+            updataTime: new Date
           }
         })
-    }
-    else {
+        .then(() => {
+          this.reqTarget()
+        })
+    } else {
       target
         .where({
           targetID: _.eq(this.data.targetDetail.targetID * 1)
         })
         .update({
           data: {
-            note: _.push({ "note": this.data.textareaAValue, "plan": this.data.index, "time": new Date }),
-            progress: _.set(this.data.index),
-            updataTime: _set(new Date)
+            note: _.push({
+              "note": this.data.textareaAValue,
+              "plan": this.data.index * 1,
+              "time": new Date
+            }),
+            progress: this.data.index * 1,
+            updataTime: new Date
           }
+        })
+        .then(() => {
+          this.reqTarget()
         })
     }
 

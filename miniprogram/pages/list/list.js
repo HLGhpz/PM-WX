@@ -13,6 +13,8 @@ Page({
   data: {
     TabCur: 1,
     processList: ["立项", "收集", "制作", "发布", "暂停", "待点评", "完成", "中止"],
+    bgList: ["bg-lightBlue", "bg-blue", "bg-indigo", "bg-deepPurple", "bg-gery", "bg-pink", "bg-red"],
+    lineList: ["line-lightBlue", "line-blue", "line-indigo", "line-deepPurple", "line-gery", "line-pink", "line-red"],
   },
 
   /**
@@ -83,8 +85,11 @@ Page({
             value.updataDay = Math.floor((new Date - value.updataTime) / (24 * 3600 * 1000))
             value.updataTime = value.updataTime.toLocaleDateString('zh').replace(/\//g, '-')
             value.progressName = this.data.processList[value.progress]
+            value.targetBg = this.data.bgList[value.progress]
+            value.targetLine = this.data.lineList[value.progress]
             // let target
           })
+          console.log(res.data)
           this.setData({
             targetList: res.data
           })

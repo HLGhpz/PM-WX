@@ -1,1 +1,98 @@
 /* pages/detail/detail.wxss */
+
+.cu-timeline>.cu-item::after {
+	content: "";
+	display: block;
+	position: absolute;
+	width: 1rpx;
+	background-color: #E54D42;
+	left: 60rpx;
+	height: 100%;
+	top: 0;
+	z-index: 8;
+}
+
+
+/* 立项 */
+.bg-lightBlue {
+	background-color: #03A9F4;
+	color: var(--white);
+}
+
+/* 收集 */
+.bg-blue {
+	background-color: #2196F3;
+	color: var(--white);
+}
+
+/* 制作 */
+.bg-indigo {
+	background-color: #3F51B5;
+	color: var(--white);
+}
+
+/* 发布 */
+.bg-deepPurple {
+	background-color: #673AB7;
+	color: var(--white);
+}
+
+/* 暂停 */
+.bg-green {
+	background-color: #4caf50;
+	color: var(--white);
+}
+
+/* 待点评 */
+.bg-pink {
+	background-color: #E91E63;
+	color: var(--white);
+}
+
+/* 待完成 */
+.bg-red {
+	background-color: #F44336;
+	color: var(--white);
+}
+
+/* 立项 */
+.line-lightBlue {
+	border-color: #81d4fa;
+	color: #81d4fa;
+}
+
+/* 收集 */
+.line-blue {
+	border-color: #2196F3;
+	color: #2196F3;
+}
+
+/* 制作 */
+.line-indigo {
+	border-color: #3F51B5;
+	color: #3F51B5;
+}
+
+/* 发布 */
+.line-deepPurple {
+	border-color: #673AB7;
+	color: #673AB7;
+}
+
+/* 暂停 */
+.line-green {
+	border-color: #4caf50;
+	color: #4caf50;
+}
+
+/* 待点评 */
+.line-pink {
+	border-color: #E91E63;
+	color: #E91E63;
+}
+
+/* 待完成 */
+.line-red {
+	border-color: #F44336;
+	color: #F44336;
+}

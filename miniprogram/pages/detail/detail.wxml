@@ -6,7 +6,7 @@
 <view class="cu-card dynamic isCard margin-top">
   <view class="cu-item shadow">
     <view class="cu-list menu-avatar comment solids-top">
-      <view class="cu-item">
+      <view class="cu-item" style="position: relative; left: 0rpx; top: -3rpx">
         <view class="content">
           <view class="text-cyan">知侬</view>
           <view class="bg-grey padding-sm radius margin-top-sm  text-lg">
@@ -29,8 +29,9 @@
     <view class="cu-item text-orange cuIcon-noticefill">
       <view class="content">
         <view class="cu-capsule radius">
-          <view class="cu-tag bg-cyan">{{item.planName}}</view>
-          <view class="cu-tag line-cyan">xxx</view>
+          <view class="cu-tag radius {{item.planLine}}">STEP {{item.plan}}</view>
+          <view class="cu-tag {{item.planBg}}">{{item.planName}}</view>
+          <view class="cu-tag {{item.planLine}}">{{item.hourMinute}}</view>
         </view>
         <view class="margin-top">{{item.note}}</view>
       </view>
