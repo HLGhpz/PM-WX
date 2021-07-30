@@ -87,9 +87,7 @@ Page({
             value.progressName = this.data.processList[value.progress]
             value.targetBg = this.data.bgList[value.progress]
             value.targetLine = this.data.lineList[value.progress]
-            // let target
           })
-          console.log(res.data)
           this.setData({
             targetList: res.data
           })
@@ -151,23 +149,30 @@ Page({
     })
   },
 
-  textareaInput(e) {
-    this.setData({
-      targetDetail: e.detail.value
-    })
-  },
-
+   /**
+   * 列表界面提交数据监听
+   */
   formSubmit(e) {
     this.setData({
-      targetTitle: e.detail.value.targetTitle
+      targetTitle: e.detail.value.targetTitle,
+      targetDetail: e.detail.value.targetDetail
+    })
+    this.showModal()
+  },
+
+  /**
+   * 确认提交数据的拟态展示
+   */
+  showModal(e) {
+    console.log("showModal", e)
+    this.setData({
+      modalName: "DialogModal"
     })
   },
 
-  showModal(e) {
-    this.setData({
-      modalName: e.currentTarget.dataset.target
-    })
-  },
+  /**
+   * 判断是否将数据加入数据库
+   */
   hideModal(e) {
     if (e.currentTarget.id == "sure") {
       target.count().then((e) => {
@@ -188,20 +193,26 @@ Page({
             }
           })
           .then((e) => {
-            console.log("添加数据反馈", e)
-            this.setData({
-              targetDetail: "xx",
-              targetTitle: "xx"
-            })
+            // console.log("添加数据反馈", e)
+            this.cleanData()
             this.reqTarget()
-            console.log("targetDetail", this.data.targetDetail)
           })
       })
-
-
     }
     this.setData({
       modalName: null
     })
   },
+
+
+  /**
+   * 清除输入框
+   */
+  cleanData() {
+    this.setData({
+      targetDetail: null,
+      targetTitle: null
+    })
+  }
+  
 })

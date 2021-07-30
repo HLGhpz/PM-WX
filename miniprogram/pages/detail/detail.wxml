@@ -4,12 +4,12 @@
 </cu-custom>
 
 <view class="bg-white .light solids-bottom padding-xs flex align-center">
-    <view class="flex-sub text-center">
-      <view class="solid-bottom text-xl padding">
-        <text class="text-purple .light text-bold">{{targetDetail.targetName}}</text>
-      </view>
+  <view class="flex-sub text-center">
+    <view class="solid-bottom text-xl padding">
+      <text class="text-purple .light text-bold">{{targetDetail.targetName}}</text>
     </view>
   </view>
+</view>
 
 <block wx:for="{{targetDetail.note}}" wx:key>
   <view class="cu-timeline">
@@ -27,42 +27,36 @@
   </view>
 </block>
 
-<form>
-
+<form bindsubmit="formSubmit" bindreset="formReset">
   <view class="cu-form-group margin-top">
     <view class="title">选择进展</view>
-    <picker bindchange="PickerChange" value="{{index}}" range="{{planList}}">
+    <picker name="step" value="{{step}}" range="{{planList}}">
       <view class="picker">
-        {{index?planList[index]:planList[targetDetail.progress]}}
+        {{step?planList[step]:planList[targetDetail.progress]}}
       </view>
     </picker>
   </view>
   <view class="cu-form-group">
-    <textarea maxlength="-1" disabled="{{modalName!=null}}" bindinput="textareaAInput" placeholder="多行文本输入框"></textarea>
+    <textarea maxlength="-1" placeholder="多行文本输入框" name="note"value="{{note}}"></textarea> 
   </view>
 
+  <view class="cu-form-group flex bg-white">
+    <button form-type="submit" class="cu-btn bg-cyan margin-sm flex-sub"
+      data-target="DialogModal" bindtap="showModal">提交进展</button>
+    <button form-type="reset" class="cu-btn bg-pink margin-sm flex-sub">清除数据</button>
+  </view>
 </form>
 
-
-
-<view class="cu-bar bg-white margin-top">
-  <view class="action">
-    <text class="cuIcon-title text-orange "></text> 提交
-  </view>
-  <view class="action">
-    <button class="cu-btn bg-green shadow" bindtap="showModal" data-target="DialogModal1">进展报告</button>
-  </view>
-</view>
-<view class="cu-modal {{modalName=='DialogModal1'?'show':''}}">
+<view class="cu-modal {{modalName=='DialogModal'?'show':''}}">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">
-      <view class="content">{{index?planList[index]:planList[targetDetail.progress]}}</view>
+      <view class="content">{{step?planList[step]:planList[targetDetail.progress]}}</view>
       <view class="action" bindtap="hideModal">
         <text class="cuIcon-close text-red"></text>
       </view>
     </view>
     <view class="padding-xl">
-      {{textareaAValue}}
+      {{note}}
     </view>
     <view class="cu-bar bg-white justify-end">
       <view class="action">

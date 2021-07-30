@@ -13,7 +13,7 @@ Page({
     planList: ["立项", "收集", "制作", "发布", "普通"],
     bgList: ["bg-lightBlue", "bg-blue", "bg-indigo", "bg-deepPurple", "bg-green", "bg-pink", "bg-red"],
     lineList: ["line-lightBlue", "line-blue", "line-indigo", "line-deepPurple", "line-green", "line-pink", "line-red"],
-    index: null,
+    step: null
   },
 
   /**
@@ -86,10 +86,16 @@ Page({
       .get()
       .then((value, index) => {
         let target = value.data[0]
-        console.log('target', value)
         target.time = target.updataTime.toLocaleDateString('zh').replace(/\//g, '-')
-        let note = target.note.map((value, index) => {
-          value.hourMinute = `${value.time.getHours()}:${value.time.getMinutes()}`
+        target.note.map((value, index) => {
+          let Hour = value.time.getHours().toString()
+          let Minute = 0
+          if (value.time.getMinutes() < 10) {
+            Minute = '0' + value.time.getMinutes().toString()
+          } else {
+            Minute = value.time.getMinutes().toString()
+          }
+          value.hourMinute = Hour + ':' + Minute
           value.time = value.time.toLocaleDateString('zh').replace(/\//g, '-')
           value.planName = this.data.planList[value.plan]
           value.planBg = this.data.bgList[value.plan]
@@ -103,34 +109,12 @@ Page({
       })
   },
 
-  numSteps() {
-    this.setData({
-      num: this.data.num == this.data.numList.length - 1 ? 0 : this.data.num + 1
-    })
-  },
-
-  addNote() {
-
-  },
-
-  PickerChange(e) {
-    // console.log(e);
-    this.setData({
-      index: e.detail.value
-    })
-  },
-
-  textareaAInput(e) {
-    this.setData({
-      textareaAValue: e.detail.value
-    })
-  },
-
   /**
    * 监听Target数据的提交
    */
   updataPlan() {
-    if (this.data.index == 4 || this.data.index <= this.data.targetDetail.progress) {
+    console.log("updataPlan")
+    if (this.data.step == 4 || this.data.step <= this.data.targetDetail.progress) {
       target
         .where({
           targetID: _.eq(this.data.targetDetail.targetID * 1)
@@ -138,14 +122,18 @@ Page({
         .update({
           data: {
             note: _.push({
-              "note": this.data.textareaAValue,
-              "plan": this.data.index,
+              "note": this.data.note,
+              "plan": this.data.step,
               "time": new Date
             }),
             updataTime: new Date
           }
         })
         .then(() => {
+          this.setData({
+            note: null,
+            step: 0
+          })
           this.reqTarget()
         })
     } else {
@@ -156,11 +144,11 @@ Page({
         .update({
           data: {
             note: _.push({
-              "note": this.data.textareaAValue,
-              "plan": this.data.index * 1,
+              "note": this.data.note,
+              "plan": this.data.step * 1,
               "time": new Date
             }),
-            progress: this.data.index * 1,
+            progress: this.data.step * 1,
             updataTime: new Date
           }
         })
@@ -171,9 +159,18 @@ Page({
 
   },
 
-  showModal(e) {
+  formSubmit(e) {
     this.setData({
-      modalName: e.currentTarget.dataset.target
+      step: e.detail.value.step,
+      note: e.detail.value.note
+    })
+    this.showModal()
+  },
+
+  showModal(e) {
+    // console.log(showModa)
+    this.setData({
+      modalName: "DialogModal"
     })
   },
 
@@ -186,5 +183,4 @@ Page({
       modalName: null
     })
   }
-
 })
