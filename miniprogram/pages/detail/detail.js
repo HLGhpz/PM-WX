@@ -159,9 +159,14 @@ Page({
 
   },
 
+  pickerChange(e) {
+    this.setData({
+      step: e.detail.value * 1
+    })
+  },
+
   formSubmit(e) {
     this.setData({
-      step: e.detail.value.step,
       note: e.detail.value.note
     })
     this.showModal()
@@ -173,7 +178,6 @@ Page({
       modalName: "DialogModal"
     })
   },
-
 
   hideModal(e) {
     if (e.currentTarget.id == "ensure") {

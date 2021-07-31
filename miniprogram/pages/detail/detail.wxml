@@ -30,7 +30,7 @@
 <form bindsubmit="formSubmit" bindreset="formReset">
   <view class="cu-form-group margin-top">
     <view class="title">选择进展</view>
-    <picker name="step" value="{{step}}" range="{{planList}}">
+    <picker bindchange="pickerChange" name="step" value="{{step}}" range="{{planList}}">
       <view class="picker">
         {{step?planList[step]:planList[targetDetail.progress]}}
       </view>
