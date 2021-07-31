@@ -2,6 +2,7 @@
   <view slot="content">项目管理</view>
 </cu-custom>
 
+<!-- 选择列表 -->
 <scroll-view scroll-x class="bg-red nav text-center">
   <view class="cu-item {{1==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="1">
     <text class="cuIcon-edit"></text> 待完成
@@ -14,6 +15,7 @@
   </view>
 </scroll-view>
 
+<!-- 主页面 -->
 <block wx:if="{{TabCur==1}}">
   <block wx:for="{{targetList}}" wx:key>
     <view class="cu-timeline padding" id="{{item.targetID}}" bindtap="goToDetail">
@@ -30,23 +32,27 @@
       </view>
     </view>
   </block>
-  <form bindsubmit="formSubmit" bindreset="formReset">
-    <view class="cu-form-group margin-top">
-      <view class="title">立项题目</view>
-      <input name="targetTitle" placeholder="项目名称" value="{{targetTitle}}"></input>
-    </view>
-    <view class="cu-form-group">
-      <textarea name="targetDetail" maxlength="-1" value="{{targetDetail}}" placeholder="简介"></textarea>
-    </view>
-    <view class="cu-form-group flex bg-white">
-      <button form-type="submit" class="cu-btn bg-cyan margin-sm flex-sub" 
-        data-target="DialogModal">提交数据</button>
-      <button form-type="reset" class="cu-btn bg-pink margin-sm flex-sub">清除数据</button>
-    </view>
-  </form>
+
+  <!-- 添加项目 -->
+<form bindsubmit="formSubmit" bindreset="formReset">
+  <view class="cu-form-group margin-top">
+    <view class="title">立项题目</view>
+    <input name="targetTitle" placeholder="项目名称" value="{{targetTitle}}"></input>
+  </view>
+  <view class="cu-form-group">
+    <textarea name="targetDetail" maxlength="-1" value="{{targetDetail}}" placeholder="简介"></textarea>
+  </view>
+  <view class="cu-form-group flex bg-white">
+    <button form-type="submit" class="cu-btn bg-cyan margin-sm flex-sub" data-target="DialogModal">提交数据</button>
+    <button form-type="reset" class="cu-btn bg-pink margin-sm flex-sub">清除数据</button>
+  </view>
+</form>
 
 </block>
 
+
+
+<!-- 拟态框 -->
 <view class="cu-modal {{modalName=='DialogModal'?'show':''}}">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">

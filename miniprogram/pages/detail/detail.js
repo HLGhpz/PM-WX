@@ -153,6 +153,10 @@ Page({
           }
         })
         .then(() => {
+          this.setData({
+            note: null,
+            step: 0
+          })
           this.reqTarget()
         })
     }

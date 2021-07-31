@@ -6,13 +6,13 @@
 <view class="bg-white .light solids-bottom padding-xs flex align-center">
   <view class="flex-sub text-center">
     <view class="solid-bottom text-xl padding">
-      <text class="text-purple .light text-bold">{{targetDetail.targetName}}</text>
+      <text selectable="true" class="text-purple .light text-bold">{{targetDetail.targetName}}</text>
     </view>
   </view>
 </view>
 
 <block wx:for="{{targetDetail.note}}" wx:key>
-  <view class="cu-timeline">
+  <view class="cu-timeline padding">
     <view class="cu-time">{{item.time}}</view>
     <view class="cu-item text-orange cuIcon-noticefill">
       <view class="content">
@@ -21,7 +21,9 @@
           <view class="cu-tag {{item.planBg}}">{{item.planName}}</view>
           <view class="cu-tag {{item.planLine}}">{{item.hourMinute}}</view>
         </view>
-        <view class="margin-top">{{item.note}}</view>
+        <view class="margin-top">
+          <text selectable="true">{{item.note}}</text>
+        </view>
       </view>
     </view>
   </view>
@@ -37,12 +39,12 @@
     </picker>
   </view>
   <view class="cu-form-group">
-    <textarea maxlength="-1" placeholder="多行文本输入框" name="note"value="{{note}}"></textarea> 
+    <textarea maxlength="-1" placeholder="多行文本输入框" name="note" value="{{note}}"></textarea>
   </view>
 
   <view class="cu-form-group flex bg-white">
-    <button form-type="submit" class="cu-btn bg-cyan margin-sm flex-sub"
-      data-target="DialogModal" bindtap="showModal">提交进展</button>
+    <button form-type="submit" class="cu-btn bg-cyan margin-sm flex-sub" data-target="DialogModal"
+      bindtap="showModal">提交进展</button>
     <button form-type="reset" class="cu-btn bg-pink margin-sm flex-sub">清除数据</button>
   </view>
 </form>
