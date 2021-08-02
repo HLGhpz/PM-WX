@@ -3,6 +3,7 @@
   <view slot="content">立项进展</view>
 </cu-custom>
 
+<!-- 标题 -->
 <view class="bg-white .light solids-bottom padding-xs flex align-center">
   <view class="flex-sub text-center">
     <view class="solid-bottom text-xl padding">
@@ -11,6 +12,7 @@
   </view>
 </view>
 
+<!-- 详情 -->
 <block wx:for="{{targetDetail.note}}" wx:key>
   <view class="cu-timeline padding">
     <view class="cu-time">{{item.time}}</view>
@@ -22,7 +24,9 @@
           <view class="cu-tag {{item.planLine}}">{{item.hourMinute}}</view>
         </view>
         <view class="margin-top">
-          <text selectable="true">{{item.note}}</text>
+          <text user-select="true">{{item.note}}</text>
+          <!-- <view>{{item.note}}</view>
+          <text>{{item.note}}</text> -->
         </view>
       </view>
     </view>
@@ -39,7 +43,8 @@
     </picker>
   </view>
   <view class="cu-form-group">
-    <textarea maxlength="-1" placeholder="多行文本输入框" name="note" value="{{note}}"></textarea>
+    <textarea maxlength="-1" placeholder="多行文本输入框" name="note" value="{{note}}"
+      style="position: relative; left: 3rpx; top: 0rpx"></textarea>
   </view>
 
   <view class="cu-form-group flex bg-white">

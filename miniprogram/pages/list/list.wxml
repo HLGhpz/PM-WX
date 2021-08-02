@@ -27,26 +27,28 @@
             <view class="cu-tag {{item.targetBg}}">{{item.progressName}}</view>
             <view class="radius cu-tag {{item.targetLine}}">已过去：{{item.updataDay}} 天</view>
           </view>
-          <view class="margin-top">{{item.targetName}}</view>
+          <view class="margin-top">
+            <text ser-select="true" class="note">{{item.targetName}}</text>
+          </view>
         </view>
       </view>
     </view>
   </block>
 
   <!-- 添加项目 -->
-<form bindsubmit="formSubmit" bindreset="formReset">
-  <view class="cu-form-group margin-top">
-    <view class="title">立项题目</view>
-    <input name="targetTitle" placeholder="项目名称" value="{{targetTitle}}"></input>
-  </view>
-  <view class="cu-form-group">
-    <textarea name="targetDetail" maxlength="-1" value="{{targetDetail}}" placeholder="简介"></textarea>
-  </view>
-  <view class="cu-form-group flex bg-white">
-    <button form-type="submit" class="cu-btn bg-cyan margin-sm flex-sub" data-target="DialogModal">提交数据</button>
-    <button form-type="reset" class="cu-btn bg-pink margin-sm flex-sub">清除数据</button>
-  </view>
-</form>
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="cu-form-group margin-top">
+      <view class="title">立项题目</view>
+      <input name="targetTitle" placeholder="项目名称" value="{{targetTitle}}"></input>
+    </view>
+    <view class="cu-form-group">
+      <textarea name="targetDetail" maxlength="-1" value="{{targetDetail}}" placeholder="简介"></textarea>
+    </view>
+    <view class="cu-form-group flex bg-white">
+      <button form-type="submit" class="cu-btn bg-cyan margin-sm flex-sub" data-target="DialogModal">提交数据</button>
+      <button form-type="reset" class="cu-btn bg-pink margin-sm flex-sub">清除数据</button>
+    </view>
+  </form>
 
 </block>
 
