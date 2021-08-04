@@ -1,5 +1,4 @@
 // pages/list/list.js
-const moment = require('../../utils/moment')
 const db = wx.cloud.database()
 const _ = db.command
 const target = db.collection('noPigeon')
@@ -11,10 +10,17 @@ Page({
    * 页面的初始数据
    */
   data: {
+    currentPage: 0,
+    pageSize: 8,
+    loadMore: false,
+    footShow: false,
     TabCur: 1,
     processList: ["立项", "收集", "制作", "发布", "暂停", "待点评", "完成", "中止"],
     bgList: ["bg-lightBlue", "bg-blue", "bg-indigo", "bg-deepPurple", "bg-gery", "bg-pink", "bg-red"],
     lineList: ["line-lightBlue", "line-blue", "line-indigo", "line-deepPurple", "line-gery", "line-pink", "line-red"],
+    targetList: [],
+    lastListLength: 0,
+    totolLength: 0
   },
 
   /**
@@ -27,12 +33,14 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {},
+  onReady: function () { },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  onShow: function () {
+    // this.reqTarget();
+  },
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -59,7 +67,17 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    if (this.data.lastListLength < 8) {
+      this.setData({
+        loadMore: false,
+        footShow: true
+      })      
+    } else {
+      this.setData({
+        loadMore: true
+      })
+      this.reqTarget()
+    }
   },
 
   /**
@@ -74,57 +92,44 @@ Page({
    * 请求目标数据库
    */
   reqTarget: function () {
+    // function reqTarget() {
+    console.log("skipPage", this.data.currentPage)
     if (this.data.TabCur == 1) {
-      target
-        .where({
-          progress: _.lte(4)
-        })
-        .get()
-        .then(res => {
-          res.data.map((value, index) => {
-            value.updataDay = Math.floor((new Date - value.updataTime) / (24 * 3600 * 1000))
-            value.updataTime = value.updataTime.toLocaleDateString('zh').replace(/\//g, '-')
-            value.progressName = this.data.processList[value.progress]
-            value.targetBg = this.data.bgList[value.progress]
-            value.targetLine = this.data.lineList[value.progress]
-          })
-          this.setData({
-            targetList: res.data
-          })
-        })
+      this.setData({
+        progressList: [0, 1, 2, 3, 4]
+      })
+
     } else if (this.data.TabCur == 2) {
-      target.where({
-          progress: _.eq(5)
-        })
-        .get()
-        .then(res => {
-          res.data.map((value, index) => {
-            // value.updataDay = Math.floor((new Date - value.updataTime) / (24 * 3600 * 1000))
-            // value.updataTime = value.updataTime.toLocaleDateString()
-            value.progressName = this.data.processList[value.progress]
-            // let target
-          })
-          this.setData({
-            targetList: res.data
-          })
-        })
+      this.setData({
+        progressList: [5]
+      })
     } else {
-      target.where({
-          progress: _.gte(6)
-        })
-        .get()
-        .then(res => {
-          res.data.map((value, index) => {
-            // value.updataDay = Math.floor((new Date - value.updataTime) / (24 * 3600 * 1000))
-            // value.updataTime = value.updataTime.toLocaleDateString()
-            value.progressName = this.data.processList[value.progress]
-            // let target
-          })
-          this.setData({
-            targetList: res.data
-          })
-        })
+      this.setData({
+        progressList: [5, 6, 7, 8, 9]
+      })
     }
+
+    wx.cloud.callFunction({
+      name: 'getTargetData',
+      data: {
+        progressList: this.data.progressList,
+        skipPage: this.data.currentPage * this.data.pageSize,
+        pageSize: this.data.pageSize
+      }
+    }).then((res) => {
+      let targetList = res.result.targetList.data
+      targetList.map((value, index) => {
+        value.progressName = this.data.processList[value.progress]
+        value.targetBg = this.data.bgList[value.progress]
+        value.targetLine = this.data.lineList[value.progress]
+      })
+      this.setData({
+        lastListLength: targetList.length,
+        targetList: this.data.targetList.concat(targetList),
+        currentPage: ++this.data.currentPage,
+        totolLength: this.data.totolLength + targetList.length
+      })
+    })
 
   },
 
@@ -149,70 +154,20 @@ Page({
     })
   },
 
-   /**
-   * 列表界面提交数据监听
-   */
-  formSubmit(e) {
-    this.setData({
-      targetTitle: e.detail.value.targetTitle,
-      targetDetail: e.detail.value.targetDetail
-    })
-    this.showModal()
-  },
-
   /**
-   * 确认提交数据的拟态展示
+   * 跳转详情页面
    */
-  showModal(e) {
-    console.log("showModal", e)
-    this.setData({
-      modalName: "DialogModal"
-    })
-  },
-
-  /**
-   * 判断是否将数据加入数据库
-   */
-  hideModal(e) {
-    if (e.currentTarget.id == "sure") {
-      target.count().then((e) => {
-        this.setData({
-          totalTarget: e.total
-        })
-        target.add({
-            data: {
-              updataTime: new Date,
-              targetName: this.data.targetTitle,
-              progress: 0,
-              targetID: this.data.totalTarget + 1,
-              note: [{
-                note: this.data.targetDetail,
-                plan: 0,
-                time: new Date
-              }]
-            }
-          })
-          .then((e) => {
-            // console.log("添加数据反馈", e)
-            this.cleanData()
-            this.reqTarget()
-          })
-      })
-    }
-    this.setData({
-      modalName: null
-    })
-  },
 
 
   /**
-   * 清除输入框
+   * 添加项目
    */
-  cleanData() {
-    this.setData({
-      targetDetail: null,
-      targetTitle: null
+  addItem() {
+    wx.navigateTo({
+      url: '../note/note',
+    }).then((e) => {
+      console.log("note")
     })
   }
-  
+
 })

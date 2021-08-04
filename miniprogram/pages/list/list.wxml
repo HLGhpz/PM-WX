@@ -19,7 +19,7 @@
 <block wx:if="{{TabCur==1}}">
   <block wx:for="{{targetList}}" wx:key>
     <view class="cu-timeline padding" id="{{item.targetID}}" bindtap="goToDetail">
-      <view class="cu-time">{{item.updataTime}}</view>
+      <view class="cu-time">{{item.updataDate}}</view>
       <view class="cu-item text-orange cuIcon-noticefill">
         <view class="content">
           <view class="cu-capsule">
@@ -35,42 +35,19 @@
     </view>
   </block>
 
-  <!-- 添加项目 -->
-  <form bindsubmit="formSubmit" bindreset="formReset">
-    <view class="cu-form-group margin-top">
-      <view class="title">立项题目</view>
-      <input name="targetTitle" placeholder="项目名称" value="{{targetTitle}}"></input>
+  <block wx:if="{{loadMore}}">
+    <mp-loading type="circle"></mp-loading>
+  </block>
+  <block wx:if="{{footShow}}">
+    <view class="weui-footer">
+      <view class="weui-footer__link">已加载完毕，共{{totolLength}}项</view>
+      <view class="weui-footer__text">Copyright &copy; 2020-2021 hlghpz</view>
     </view>
-    <view class="cu-form-group">
-      <textarea name="targetDetail" maxlength="-1" value="{{targetDetail}}" placeholder="简介"></textarea>
-    </view>
-    <view class="cu-form-group flex bg-white">
-      <button form-type="submit" class="cu-btn bg-cyan margin-sm flex-sub" data-target="DialogModal">提交数据</button>
-      <button form-type="reset" class="cu-btn bg-pink margin-sm flex-sub">清除数据</button>
-    </view>
-  </form>
+  </block>
+
+  <!-- 悬浮按钮 -->
+  <view bindtap="addItem">
+    <image class="addItem" src="../../images/note2.png"></image>
+  </view>
 
 </block>
-
-
-
-<!-- 拟态框 -->
-<view class="cu-modal {{modalName=='DialogModal'?'show':''}}">
-  <view class="cu-dialog">
-    <view class="cu-bar bg-white justify-end">
-      <view class="content">{{targetTitle}}</view>
-      <view class="action" bindtap="hideModal">
-        <text class="cuIcon-close text-red"></text>
-      </view>
-    </view>
-    <view class="padding-xl">
-      {{targetDetail}}
-    </view>
-    <view class="cu-bar bg-white justify-end">
-      <view class="action">
-        <button class="cu-btn line-green text-green" bindtap="hideModal" id="cancel">取消</button>
-        <button class="cu-btn bg-green margin-left" bindtap="hideModal" id="sure">确定</button>
-      </view>
-    </view>
-  </view>
-</view>

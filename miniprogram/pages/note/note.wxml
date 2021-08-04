@@ -1,0 +1,40 @@
+<!--pages/note/note.wxml-->
+<cu-custom bgColor="bg-gradual-pink" isBack="{{true}}">
+  <view slot="content">添加项目</view>
+</cu-custom>
+
+<!-- 添加项目 -->
+<form bindsubmit="formSubmit" bindreset="formReset">
+  <view class="cu-form-group margin-top">
+    <view class="title">立项题目</view>
+    <input name="targetTitle" placeholder="项目名称" value="{{targetTitle}}"></input>
+  </view>
+  <view class="cu-form-group">
+    <textarea name="targetDetail" maxlength="-1" value="{{targetDetail}}" placeholder="简介"></textarea>
+  </view>
+  <view class="cu-form-group flex bg-white">
+    <button form-type="submit" class="cu-btn bg-cyan margin-sm flex-sub" data-target="DialogModal">提交数据</button>
+    <button form-type="reset" class="cu-btn bg-pink margin-sm flex-sub">清除数据</button>
+  </view>
+</form>
+
+<!-- 拟态框 -->
+<view class="cu-modal {{modalName=='DialogModal'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">{{targetTitle}}</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      {{targetDetail}}
+    </view>
+    <view class="cu-bar bg-white justify-end">
+      <view class="action">
+        <button class="cu-btn line-green text-green" bindtap="hideModal" id="cancel">取消</button>
+        <button class="cu-btn bg-green margin-left" bindtap="hideModal" id="sure">确定</button>
+      </view>
+    </view>
+  </view>
+</view>

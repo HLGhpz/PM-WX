@@ -98,6 +98,27 @@
 }
 
 .note {
-	width:50px;
-	height:30px;
+	width: 50px;
+	height: 30px;
+}
+
+.addItem {
+	position: fixed;
+	width: 100rpx;
+	height: 100rpx;
+	bottom: 50rpx;
+	right: 50rpx;
+}
+
+.weui-footer {
+	margin-top: 30rpx;
+	margin-bottom: 0rpx
+}
+
+.weui-footer__link {
+	font-size: 30rpx;
+}
+
+.weui-footer__text {
+	font-size: 26rpx;
 }

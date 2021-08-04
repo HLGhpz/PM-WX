@@ -6,6 +6,7 @@
     "es6": true,
     "enhance": true,
     "postcss": true,
+    "preloadBackgroundData": false,
     "minified": true,
     "newFeature": true,
     "coverView": true,
@@ -17,6 +18,8 @@
     "checkInvalidKey": true,
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
+    "compileHotReLoad": false,
+    "lazyloadPlaceholderEnable": false,
     "useMultiFrameRuntime": true,
     "useApiHook": true,
     "useApiHostProcess": false,
@@ -25,6 +28,7 @@
       "disablePlugins": [],
       "outputPath": ""
     },
+    "enableEngineNative": false,
     "useIsolateContext": true,
     "userConfirmedBundleSwitch": false,
     "packNpmManually": false,
@@ -34,10 +38,11 @@
   },
   "appid": "wxc8b13276266664cd",
   "projectname": "PM-WX",
-  "libVersion": "2.14.1",
+  "libVersion": "2.19.0",
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
+  "compileType": "miniprogram",
   "condition": {
     "search": {
       "list": []
@@ -66,6 +71,12 @@
           "name": "详情页调试",
           "pathName": "pages/detail/detail",
           "query": "targetID=1",
+          "scene": null
+        },
+        {
+          "name": "添加项目调试",
+          "pathName": "pages/note/note",
+          "query": "",
           "scene": null
         }
       ]

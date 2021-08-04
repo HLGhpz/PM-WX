@@ -23,6 +23,12 @@
           "pathName": "pages/detail/detail",
           "query": "targetID=5",
           "scene": null
+        },
+        {
+          "name": "添加项目调试",
+          "pathName": "pages/note/note",
+          "query": "",
+          "scene": null
         }
       ]
     }
