@@ -24,11 +24,8 @@ exports.main = async (event, context) => {
   await Promise.all(targetList.data.map((value, index) => {
     value.updataDay = moment().diff(value.updataTime, 'days')
     value.updataDate = moment(value.updataTime).format("YY-MM-DD")
-    value.updataTime = moment(value.updataTime).format("hh:mm:ss")
-    // await Promise.all(value.note.map((value, index) => {
-    //   value.updataDate = moment(value.time).format("YYYY-MM-DD")
-    //   value.updataTime = moment(value.time).format("hh:mm:ss")
-    // }))
+    value.updataTime = moment(value.updataTime).format("kk:mm:ss")
+
   }))
 
   return {

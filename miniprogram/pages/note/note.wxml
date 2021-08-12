@@ -4,14 +4,50 @@
 </cu-custom>
 
 <!-- 添加项目 -->
-<form bindsubmit="formSubmit" bindreset="formReset">
+<form bindsubmit="formSubmit" bindreset="formReset" class="addItem">\
+  <!-- 标题 -->
   <view class="cu-form-group margin-top">
+    <image src="../../images/title.png"
+      style="width: 50rpx; height: 50rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx"></image>
+    <view class="title">项目标题</view>
+    <input name="targetTitle" value="{{targetTitle}}" placeholder="输入标题"></input>
+  </view>
+  <!-- 链接 -->
+  <view class="cu-form-group">
+    <image src="../../images/link.png"
+      style="width: 50rpx; height: 50rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx"></image>
+    <view class="title" style="position: relative; left: 3rpx; top: -1rpx">项目链接</view>
+    <input name="targetLink" value="{{targetLink}}" placeholder="输入项目链接"></input>
+  </view>
+  <!-- 来源 -->
+  <view class="cu-form-group">
+    <image src="../../images/source.png"
+      style="width: 50rpx; height: 50rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx"></image>
+    <view class="title">项目来源</view>
+    <picker bindchange="PickerChange" name="targetSource" value="{{index}}" range="{{source}}"
+      style="width: 320rpx; height: 99rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx; right: 0rpx">
+      <view class="picker"
+        style="width: 291rpx; height: 99rpx; display: block; box-sizing: border-box; left: NaNrpx; top: NaNrpx">
+        {{index?source[index]:'选择项目来源'}}
+      </view>
+    </picker>
+  </view>
+  <!-- 简介 -->
+  <view class="cu-form-group align-start"
+    style="width: 694rpx; height: 673rpx; display: flex; box-sizing: border-box; left: NaNrpx; top: NaNrpx">
+    <image src="../../images/abstract.png"
+      style="width: 50rpx; height: 50rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx"></image>
+    <view class="title">项目简介</view>
+    <textarea maxlength="-1" name="targetDetail" value="{{targetDetail}}" placeholder="输入项目简介"></textarea>
+  </view>
+  <!-- <view class="cu-form-group margin-top">
     <view class="title">立项题目</view>
     <input name="targetTitle" placeholder="项目名称" value="{{targetTitle}}"></input>
   </view>
   <view class="cu-form-group">
     <textarea name="targetDetail" maxlength="-1" value="{{targetDetail}}" placeholder="简介"></textarea>
-  </view>
+  </view> -->
+  <!-- 提交 -->
   <view class="cu-form-group flex bg-white">
     <button form-type="submit" class="cu-btn bg-cyan margin-sm flex-sub" data-target="DialogModal">提交数据</button>
     <button form-type="reset" class="cu-btn bg-pink margin-sm flex-sub">清除数据</button>

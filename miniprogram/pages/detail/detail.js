@@ -2,6 +2,7 @@
 const db = wx.cloud.database()
 const _ = db.command
 const target = db.collection('noPigeon')
+const moment = require('../../utils/moment')
 
 
 Page({
@@ -20,10 +21,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options)
     this.setData({
-      targetID: options.targetID
+      targetID: options.id * 1
     })
-    this.reqTarget()
+    this.reqIdData()
   },
 
   /**
@@ -75,37 +77,28 @@ Page({
 
   },
 
+
   /**
-   * 请求目标详细说明
+   * 根据TargetId请求对应数据
    */
-  reqTarget: function () {
-    target
-      .where({
-        targetID: _.eq(this.data.targetID * 1)
-      })
-      .get()
-      .then((value, index) => {
-        let target = value.data[0]
-        target.time = target.updataTime.toLocaleDateString('zh').replace(/\//g, '-')
+  reqIdData: function () {
+    wx.cloud.callFunction({
+      name: 'getIdData',
+      data: {
+        targetID: this.data.targetID,
+      }
+    })
+      .then((res) => {
+        let target = res.result.targetData
         target.note.map((value, index) => {
-          let Hour = value.time.getHours().toString()
-          let Minute = 0
-          if (value.time.getMinutes() < 10) {
-            Minute = '0' + value.time.getMinutes().toString()
-          } else {
-            Minute = value.time.getMinutes().toString()
-          }
-          value.hourMinute = Hour + ':' + Minute
-          value.time = value.time.toLocaleDateString('zh').replace(/\//g, '-')
           value.planName = this.data.planList[value.plan]
           value.planBg = this.data.bgList[value.plan]
           value.planLine = this.data.lineList[value.plan]
-          // console.log(value)
         })
         this.setData({
-          targetDetail: target
+          targetDetail: target,
         })
-        // console.log(this.data.targetDetail)
+        console.log('target', target)
       })
   },
 
@@ -123,7 +116,8 @@ Page({
           data: {
             note: _.push({
               "note": this.data.note,
-              "plan": this.data.step,
+              "link": this.data.link,
+              "plan": this.data.step * 1,
               "time": new Date
             }),
             updataTime: new Date
@@ -134,7 +128,7 @@ Page({
             note: null,
             step: 0
           })
-          this.reqTarget()
+          this.reqIdData()
         })
     } else {
       target
@@ -145,6 +139,7 @@ Page({
           data: {
             note: _.push({
               "note": this.data.note,
+              "link": this.data.link,
               "plan": this.data.step * 1,
               "time": new Date
             }),
@@ -157,13 +152,14 @@ Page({
             note: null,
             step: 0
           })
-          this.reqTarget()
+          this.reqIdData()
         })
     }
 
   },
 
   pickerChange(e) {
+    console.log('pick', e)
     this.setData({
       step: e.detail.value * 1
     })
@@ -171,7 +167,8 @@ Page({
 
   formSubmit(e) {
     this.setData({
-      note: e.detail.value.note
+      note: e.detail.value.note,
+      link: e.detail.value.link
     })
     this.showModal()
   },

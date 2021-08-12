@@ -17,7 +17,7 @@
 
 <!-- 主页面 -->
 <block wx:if="{{TabCur==1}}">
-  <block wx:for="{{targetList}}" wx:key>
+  <block wx:for="{{targetList}}" wx:key="index">
     <view class="cu-timeline padding" id="{{item.targetID}}" bindtap="goToDetail">
       <view class="cu-time">{{item.updataDate}}</view>
       <view class="cu-item text-orange cuIcon-noticefill">

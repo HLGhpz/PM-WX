@@ -71,7 +71,7 @@ Page({
       this.setData({
         loadMore: false,
         footShow: true
-      })      
+      })
     } else {
       this.setData({
         loadMore: true
@@ -149,8 +149,9 @@ Page({
    */
   goToDetail(e) {
     let targetID = e.currentTarget.id
+
     wx.navigateTo({
-      url: `../detail/detail?targetID=${targetID}`,
+      url: `../detail/detail?id=${targetID}`,
     })
   },
 

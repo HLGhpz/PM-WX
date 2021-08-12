@@ -10,7 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    source: ["知乎", "微博", "微信", "年鉴", "统计局", "其他"]
   },
 
   /**
@@ -75,9 +75,17 @@ Page({
   formSubmit(e) {
     this.setData({
       targetTitle: e.detail.value.targetTitle,
-      targetDetail: e.detail.value.targetDetail
+      targetLink: e.detail.value.targetLink,
+      targetDetail: e.detail.value.targetDetail,
+      targetSource: this.data.source[e.detail.value.targetSource * 1]
     })
     this.showModal()
+  },
+
+  PickerChange(e) {
+    this.setData({
+      index: e.detail.value
+    })
   },
 
   /**
@@ -106,6 +114,8 @@ Page({
             targetID: this.data.totalTarget + 1,
             note: [{
               note: this.data.targetDetail,
+              link: this.data.targetLink,
+              source: this.data.targetSource,
               plan: 0,
               time: new Date
             }]
